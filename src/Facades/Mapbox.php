@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Katalam\Mapbox\Facades;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Facade;
  *
  * @method static string getToken()
  * @method static array getCoordinateForPostalCode(string $postalCode)
+ * @method static Collection mapGeoJsonFeatureCollectionToCoordinates(array $geoJson)
  */
 class Mapbox extends Facade
 {

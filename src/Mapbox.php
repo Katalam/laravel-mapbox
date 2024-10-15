@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Katalam\Mapbox;
 
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
+use Katalam\Coordinates\Dtos\Coordinate;
 use Katalam\Mapbox\Dtos\MapboxRequest;
 
 class Mapbox
@@ -44,5 +46,14 @@ class Mapbox
 
         return $this->requestApi($request)
             ->json('features');
+    }
+
+    public function mapGeoJsonFeatureCollectionToCoordinates(array $data): Collection
+    {
+        return collect($data)
+            ->map(fn (array $data) => Coordinate::fromLatLng(
+                data_get($data, 'geometry.coordinates.1'),
+                data_get($data, 'geometry.coordinates.0')
+            ));
     }
 }
