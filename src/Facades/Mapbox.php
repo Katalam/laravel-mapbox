@@ -11,8 +11,7 @@ use Illuminate\Support\Facades\Facade;
  * @see \Katalam\Mapbox\Mapbox
  *
  * @method static string getToken()
- * @method static array getCoordinateForPostalCode(string $postalCode)
- * @method static Collection mapGeoJsonFeatureCollectionToCoordinates(array $geoJson)
+ * @method static Collection getPostalCode(string $postalCode)
  */
 class Mapbox extends Facade
 {

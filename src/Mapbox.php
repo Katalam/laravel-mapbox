@@ -8,8 +8,9 @@ use Illuminate\Http\Client\Response;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
-use Katalam\Coordinates\Dtos\Coordinate;
+use Katalam\Mapbox\Dtos\Feature;
 use Katalam\Mapbox\Dtos\MapboxRequest;
+use Katalam\Mapbox\Exceptions\MapboxException;
 
 class Mapbox
 {
@@ -20,6 +21,9 @@ class Mapbox
         return Config::get('mapbox.token', '') ?? '';
     }
 
+    /**
+     * @throws MapboxException
+     */
     public function requestApi(MapboxRequest $request): Response
     {
         $parameters = $request->getParameters();
@@ -30,11 +34,33 @@ class Mapbox
             $parameters = null;
         }
 
-        return Http::mapbox()
+        $response = Http::mapbox()
             ->{$request->getMethod()}($request->getPathWithData(), $parameters);
+
+        $this->throwIfResponseFailed($response);
+
+        return $response;
     }
 
-    public function getCoordinateForPostalCode(string $postalCode): array
+    /**
+     * @throws MapboxException
+     */
+    protected function throwIfResponseFailed(Response $response): void
+    {
+        if ($response->failed()) {
+            throw new MapboxException($response->json('message'), $response->status());
+        }
+    }
+
+    protected function mapFeatureCollection(array $data): Collection
+    {
+        return collect($data)->map(fn (array $data) => Feature::fromArray($data));
+    }
+
+    /**
+     * @throws MapboxException
+     */
+    public function getPostalCode(string $postalCode): Collection
     {
         $request = new MapboxRequest(
             'GET',
@@ -44,16 +70,9 @@ class Mapbox
             ],
         );
 
-        return $this->requestApi($request)
+        $data = $this->requestApi($request)
             ->json('features');
-    }
 
-    public function mapGeoJsonFeatureCollectionToCoordinates(array $data): Collection
-    {
-        return collect($data)
-            ->map(fn (array $data) => Coordinate::fromLatLng(
-                data_get($data, 'geometry.coordinates.1'),
-                data_get($data, 'geometry.coordinates.0')
-            ));
+        return $this->mapFeatureCollection($data);
     }
 }
