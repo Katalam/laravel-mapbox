@@ -19,9 +19,6 @@ class MapboxServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-mapbox')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel_mapbox_table')
-            ->hasCommand(MapboxCommand::class);
+            ->hasConfigFile();
     }
 }
