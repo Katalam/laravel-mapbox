@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \Katalam\Mapbox\Mapbox
+ *
+ * @method static string getToken()
+ * @method static array getCoordinateForPostalCode(string $postalCode)
  */
 class Mapbox extends Facade
 {
