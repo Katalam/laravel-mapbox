@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Katalam\Mapbox;
 
-use Katalam\Mapbox\Commands\MapboxCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
