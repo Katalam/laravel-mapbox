@@ -62,6 +62,7 @@ class Mapbox
 
     /**
      * @return Collection<Feature>
+     *
      * @throws MapboxException
      */
     public function getPostalCode(string $postalCode): Collection
