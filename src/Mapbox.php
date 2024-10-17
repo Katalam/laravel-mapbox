@@ -52,12 +52,16 @@ class Mapbox
         }
     }
 
+    /**
+     * @return Collection<Feature>
+     */
     protected function mapFeatureCollection(array $data): Collection
     {
         return collect($data)->map(fn (array $data) => Feature::fromArray($data));
     }
 
     /**
+     * @return Collection<Feature>
      * @throws MapboxException
      */
     public function getPostalCode(string $postalCode): Collection
