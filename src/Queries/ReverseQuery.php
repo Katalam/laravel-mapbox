@@ -44,18 +44,17 @@ class ReverseQuery extends BaseQuery
     {
         $parameters = [];
         if ($this->country !== '') {
-            $parameters['country']  = $this->country;
+            $parameters['country'] = $this->country;
         }
         if ($this->language !== '') {
-            $parameters['language']  = $this->language;
+            $parameters['language'] = $this->language;
         }
         if ($this->types !== '') {
-            $parameters['types']  = $this->types;
+            $parameters['types'] = $this->types;
         }
         if ($this->worldview !== '') {
-            $parameters['worldview']  = $this->worldview;
+            $parameters['worldview'] = $this->worldview;
         }
-
 
         $request = new MapboxRequest(
             'GET',

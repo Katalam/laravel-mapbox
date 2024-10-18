@@ -107,24 +107,23 @@ class ForwardQuery extends BaseQuery
     {
         $parameters = [];
         if ($this->country !== '') {
-            $parameters['country']  = $this->country;
+            $parameters['country'] = $this->country;
         }
         if ($this->language !== '') {
-            $parameters['language']  = $this->language;
+            $parameters['language'] = $this->language;
         }
         if ($this->types !== '') {
-            $parameters['types']  = $this->types;
+            $parameters['types'] = $this->types;
         }
         if ($this->worldview !== '') {
-            $parameters['worldview']  = $this->worldview;
+            $parameters['worldview'] = $this->worldview;
         }
         if (count($this->bbox) > 0) {
-            $parameters['bbox']  = implode(',', $this->bbox);
+            $parameters['bbox'] = implode(',', $this->bbox);
         }
         if ($this->proximity !== '') {
-            $parameters['proximity']  = $this->proximity;
+            $parameters['proximity'] = $this->proximity;
         }
-
 
         $request = new MapboxRequest(
             'GET',

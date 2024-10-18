@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Katalam\Mapbox\Facades;
 
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
 use Katalam\Mapbox\Queries\ForwardQuery;
 use Katalam\Mapbox\Queries\ReverseQuery;
