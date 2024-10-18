@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Katalam\Coordinates\Dtos\Coordinate;
+use Katalam\Mapbox\Dtos\ForwardQueryStructuredInput;
 use Katalam\Mapbox\Facades\Mapbox;
 
 describe('request api', function () {
@@ -77,7 +78,11 @@ describe('request api', function () {
             ]),
         ]);
 
-        $response = Mapbox::getPostalCode('10115');
+        $response = Mapbox::forward()
+            ->setStructuredInput(new ForwardQueryStructuredInput(
+                postcode: '10115',
+            ))
+            ->get();
 
         expect($response)->toBeInstanceOf(Collection::class)
             ->and($response->count())->toBe(1)
